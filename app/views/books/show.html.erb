@@ -1,2 +1,52 @@
-<h1>Books#show</h1>
-<p>Find me in app/views/books/show.html.erb</p>
+<% if flash[:notice] %>
+  <div class="flash">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-xs-3">
+      <%= render 'books/list', book: @book_new %>
+    </div>
+
+
+
+    <div class="col-xs-9">
+    	<table class="table">
+    		<h2>Book detail</h2>
+    		<thead> 
+    		  <tr>
+    		    <th>
+    		      
+    		    </th>
+    		    <th>
+    		      Title
+    		    </th>
+    		    <th>
+    		      Opinion
+    		    </th>
+    		  </tr>
+    		</thead>
+    		    <tr>
+              <th>
+                <!--<a href="/users/24506">-->
+                <%= attachment_image_tag @book.user, :profile_image, :fill, 40, 40, class: "profile-thumb", fallback: "no_image.jpg", size:'40x40'%> 
+                <%= link_to @user.name , user_path(@user.id) %>
+                  <!--</a>-->
+              </th>
+            <td><%= @book.title %></td>
+            
+            <td><%= @book.body %></td>
+            
+              <% if @book.user == current_user %>
+              <td><%= link_to "Edit", edit_book_path(@book), class: "btn-sm btn-success" %></td>
+              <td><%= link_to "Destroy", book_path(@book), method: :delete, class: "btn-sm btn-danger" %></td>
+              <!--<td><a data-confirm="本当に消しますか？" class="btn-sm btn-danger destroy_book_38309" rel="nofollow" data-method="delete" href="/books/38309">Destroy</a></td>-->
+              <% end %>
+          </tr>
+        </table>
+    </div>
+  </div>
+</div>
